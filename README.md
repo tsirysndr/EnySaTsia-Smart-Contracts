@@ -20,3 +20,8 @@ This repository has the contracts that implement EnySaTsia (Voting app project f
 
 ## Deployment
 `` yarn deploy ``
+
+## Documentation
+
+- https://enysatsia.gitbook.io/project/
+- https://truffleframework.com/docs
