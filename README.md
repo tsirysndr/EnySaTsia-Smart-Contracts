@@ -14,4 +14,9 @@ This repository has the contracts that implement EnySaTsia (Voting app project f
 ## Compilation
 ``  yarn build ``
   
+## Start Ganache
 
+`` yarn ganache ``
+
+## Deployment
+`` yarn deploy ``
