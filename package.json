@@ -1,0 +1,26 @@
+{
+  "name": "enysatsia-contracts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "truffle compile",
+    "ganache": "ganache-cli -p 8541 -d --mnemonic=\"lobster absent kid rack play nature cheap surge renew army key ask\"",
+    "console": "truffle console --network development",
+    "deploy": "truffle deploy --network development --reset",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tsiry Sandratraina",
+  "license": "MIT",
+  "devDependencies": {
+    "ganache-cli": "^6.2.5",
+    "truffle": "^5.0.0"
+  },
+  "dependencies": {
+    "openzeppelin-solidity": "^2.0.0",
+    "web3": "^1.0.0-beta.37"
+  }
+}
