@@ -6,3 +6,22 @@ This repository has the contracts that implement EnySaTsia (Voting app project f
 
 - NodeJS > v9.4.0
 - Yarn Package Manager > v1.12.0
+
+## Installation
+
+  `` yarn install ``
+  
+## Compilation
+``  yarn build ``
+  
+## Start Ganache
+
+`` yarn ganache ``
+
+## Deployment
+`` yarn deploy ``
+
+## Documentation
+
+- https://enysatsia.gitbook.io/project/
+- https://truffleframework.com/docs
