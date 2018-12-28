@@ -4,32 +4,35 @@ import "./Ownable.sol";
 
 contract EnySaTsiaVoting is Ownable {
 
-  bytes32 name;
+  bytes name;
   bool sessionOpen;
-  bytes32[] questions;
+  bytes[] questions;
 
   mapping(bytes32 => bool) voteOpen;
-  mapping(address => mapping(bytes32 => bytes32)) votes;
+  mapping(address => mapping(bytes32 => bytes)) votes;
 
-  constructor(bytes32 _name) public {
+  constructor(bytes memory _name) public {
     name = _name;
   }
 
-  modifier validQuestion(bytes32 question) {
-    require(isValidQuestion(question));
+  modifier validQuestion(bytes memory question) {
+    require(
+      isValidQuestion(question),
+      "This Question already exists!"
+    );
     _;
   }
 
-  function isValidQuestion(bytes32 question) public view returns(bool) {
+  function isValidQuestion(bytes memory question) public view returns(bool) {
     for (uint i = 0; i < questions.length; i++) {
-      if (questions[i] == question) {
+      if (sha256(questions[i]) == sha256(question)) {
         return false;
       }
     }
     return true;
   }
 
-  function changeSessionName(bytes32 _name) public onlyOwner {
+  function changeSessionName(bytes memory _name) public onlyOwner {
     name = _name;
   }
 
@@ -41,28 +44,28 @@ contract EnySaTsiaVoting is Ownable {
     sessionOpen = false;
   }
 
-  function createQuestion(bytes32 question) public onlyOwner validQuestion(question) {
+  function createQuestion(bytes memory question) public onlyOwner validQuestion(question) {
     questions.push(question);
   }
 
-  function changeQuestion(bytes32 question, bytes32 sentense) public onlyOwner {
+  function changeQuestion(bytes memory question, bytes memory sentense) public onlyOwner {
     for (uint i = 0; i < questions.length; i++) {
-      if (questions[i] == question) {
+      if (sha256(questions[i]) == sha256(question)) {
         questions[i] = sentense;
       }
     }
   }
 
-  function startVote(bytes32 question) public onlyOwner {
-    voteOpen[question] = true;
+  function startVote(bytes memory question) public onlyOwner {
+    voteOpen[sha256(question)] = true;
   }
 
-  function closeVote(bytes32 question) public onlyOwner {
-    voteOpen[question] = false;
+  function closeVote(bytes memory question) public onlyOwner {
+    voteOpen[sha256(question)] = false;
   }
 
-  function vote(bytes32 decision, bytes32 question) public {
-    votes[msg.sender][question] = decision;
+  function vote(bytes memory decision, bytes memory question) public {
+    votes[msg.sender][sha256(question)] = decision;
   }
 
 }
