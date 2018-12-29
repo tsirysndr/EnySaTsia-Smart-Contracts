@@ -84,4 +84,8 @@ contract EnySaTsiaVoting is Ownable {
     votes[msg.sender][sha256(question)] = decision;
   }
 
+  function countQuestions() public view returns(uint256) {
+    return questions.length;
+  }
+
 }
