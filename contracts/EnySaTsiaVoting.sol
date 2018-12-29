@@ -23,6 +23,22 @@ contract EnySaTsiaVoting is Ownable {
     _;
   }
 
+  modifier sessionIsActive() {
+    require(
+      sessionOpen,
+      "Please start session!"
+    );
+    _;
+  }
+
+  modifier votingIsActive(bytes memory question) {
+    require(
+      voteOpen[sha256(question)],
+      "Please start vote!"
+    );
+    _;
+  }
+
   function isValidQuestion(bytes memory question) public view returns(bool) {
     for (uint i = 0; i < questions.length; i++) {
       if (sha256(questions[i]) == sha256(question)) {
@@ -44,7 +60,7 @@ contract EnySaTsiaVoting is Ownable {
     sessionOpen = false;
   }
 
-  function createQuestion(bytes memory question) public onlyOwner validQuestion(question) {
+  function createQuestion(bytes memory question) public onlyOwner sessionIsActive validQuestion(question) {
     questions.push(question);
   }
 
@@ -56,15 +72,15 @@ contract EnySaTsiaVoting is Ownable {
     }
   }
 
-  function startVote(bytes memory question) public onlyOwner {
+  function startVote(bytes memory question) public onlyOwner sessionIsActive {
     voteOpen[sha256(question)] = true;
   }
 
-  function closeVote(bytes memory question) public onlyOwner {
+  function closeVote(bytes memory question) public onlyOwner sessionIsActive {
     voteOpen[sha256(question)] = false;
   }
 
-  function vote(bytes memory decision, bytes memory question) public {
+  function vote(bytes memory decision, bytes memory question) public sessionIsActive votingIsActive(question) {
     votes[msg.sender][sha256(question)] = decision;
   }
 
