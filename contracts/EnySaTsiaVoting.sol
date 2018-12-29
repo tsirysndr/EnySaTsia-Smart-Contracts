@@ -4,12 +4,12 @@ import "./Ownable.sol";
 
 contract EnySaTsiaVoting is Ownable {
 
-  bytes name;
-  bool sessionOpen;
-  bytes[] questions;
+  bytes public name;
+  bool public sessionOpen;
+  bytes[] public questions;
 
-  mapping(bytes32 => bool) voteOpen;
-  mapping(address => mapping(bytes32 => bytes)) votes;
+  mapping(bytes32 => bool) public voteOpen;
+  mapping(address => mapping(bytes32 => bytes)) public votes;
 
   constructor(bytes memory _name) public {
     name = _name;
